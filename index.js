@@ -3,7 +3,7 @@ const redis = require('redis');
 const jwt = require('jsonwebtoken');
 const fakeUser = require('./data.json');
 
-const PORT = 5000;
+const PORT = process.env.PORT;
 const app = express();
 const client = redis.createClient();
 

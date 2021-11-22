@@ -1,6 +1,6 @@
 # JSON Web Token with Redis
 
-This is Login feature for practice JWT and Redis.
+This is simple JWT practice with Redis.
 
 <br>
 
