@@ -9,23 +9,31 @@ const client = redis.createClient();
 
 app.use(express.json());
 
+app.post('/protected', (req, res) => {
+  const { id } = req.body;
+  client.get(id, (err, data) => {
+    jwt.verify(data, 'secret', async (err, payload) => {});
+  });
+});
+
 app.post('/login', (req, res) => {
   try {
     client.get('counter', (err, data) => {
       client.set('counter', parseInt(data) + 1);
-      jwt.sign(fakeUser, 'secret', { expiresIn: '1d' }, (err, token) => {
-        client.set(parseInt(data) + 1, token);
-        res.cookie('jwt-id', parseInt(data) + 1);
-        return res.send('logged in');
-      });
+      jwt.sign(
+        fakeUser,
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: '1d' },
+        (err, token) => {
+          client.set(parseInt(data) + 1, token);
+          res.cookie('jwt-id', parseInt(data) + 1);
+          return res.send('logged in');
+        }
+      );
     });
   } catch (error) {
     console.log(error);
   }
-
-  // 1. Increment the counter.
-  // 2. Map the counter to newly created token.
-  // 3. Send the counter as response to store it in a cookie.
 });
 
 app.listen(PORT, () => {

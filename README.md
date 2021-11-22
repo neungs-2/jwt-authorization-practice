@@ -10,8 +10,9 @@ This is Login feature for practice JWT and Redis.
 - jsonwebtoken
 - nodemon
 - redis
+- dotenv
 
-`npm i express jsonwebtoken nodemon redis`
+`npm i express jsonwebtoken nodemon redis dotenv`
 
 <br>
 
